@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Test project",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node src/index.js",
     "test": "mocha"
   },
   "author": "Samuel Prado",
@@ -21,6 +21,7 @@
     "chai": "^4.1.2",
     "dotenv": "^4.0.0",
     "eslint": "^4.12.1",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "supertest-koa-agent": "^0.3.0"
   }
 }
