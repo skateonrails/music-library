@@ -1,0 +1,22 @@
+{
+  "name": "music-library",
+  "version": "1.0.0",
+  "description": "Test project",
+  "main": "src/cluster.js",
+  "scripts": {
+    "start": "node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Prado",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.4.1"
+  },
+  "devDependencies": {
+    "@strv/eslint-config-javascript": "^7.7.0",
+    "chai": "^4.1.2",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.12.1",
+    "mocha": "^4.0.1"
+  }
+}
