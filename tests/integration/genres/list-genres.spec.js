@@ -11,8 +11,8 @@ describe('/', () => {
       .get('/')
       .expect(200)
 
-    expect(res.body).to.exist()
     expect(res.body).to.have.keys(['genres'])
-    expect(res.body.genres).to.have.values(['dubstep', 'trap', 'DnB'])
+    expect(res.body.genres).to.be.an('array')
+    expect(res.body.genres).to.have.members(['dubstep', 'trap', 'DnB'])
   })
 })
