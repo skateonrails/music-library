@@ -2,13 +2,15 @@
   "name": "music-library",
   "version": "1.0.0",
   "description": "Test project",
+  "main": "src/cluster.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node .",
     "test": "mocha --opts ./tests/mocha.opts ./tests"
   },
   "author": "Samuel Prado",
   "license": "ISC",
   "dependencies": {
+    "bunyan": "^1.8.12",
     "joi": "^13.0.2",
     "kcors": "^2.2.1",
     "koa": "^2.4.1",
