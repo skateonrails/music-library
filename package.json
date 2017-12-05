@@ -9,6 +9,7 @@
   "author": "Samuel Prado",
   "license": "ISC",
   "dependencies": {
+    "joi": "^13.0.2",
     "kcors": "^2.2.1",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
