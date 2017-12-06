@@ -5,4 +5,9 @@ module.exports = {
       level: 'error',
     },
   },
+  database: {
+    connection: {
+      database: process.env.DATABASE_NAME_TEST,
+    },
+  }
 }
