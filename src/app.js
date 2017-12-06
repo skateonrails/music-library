@@ -26,7 +26,7 @@ app.use(routes)
 
 app.start = () => {
   log.info('Starting server ...')
-  app.server = app.listen('3000', () => {
+  app.server = app.listen(3000, () => {
     log.info('==> 🌎  Server listening on port 3000.')
   })
 }
