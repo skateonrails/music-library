@@ -1,5 +1,6 @@
 const cluster = require('cluster')
 const log = require('./common/logger')
+const config = require('./config')
 
 function startMaster() {
 
@@ -33,7 +34,7 @@ function startMaster() {
   process.once('SIGTERM', shutdown)
 
   // Start all workers
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < config.server.concurrency; i++) {
     log.info(`Forking worker ${i}.`)
     cluster.fork()
   }

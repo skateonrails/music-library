@@ -13,10 +13,14 @@
     "bunyan": "^1.8.12",
     "joi": "^13.0.2",
     "kcors": "^2.2.1",
+    "knex": "^0.14.2",
     "koa": "^2.4.1",
     "koa-body": "^2.5.0",
     "koa-compress": "^2.0.0",
-    "koa-router": "^7.3.0"
+    "koa-router": "^7.3.0",
+    "lodash": "^4.17.4",
+    "objection": "^0.9.2",
+    "pg": "^7.4.0"
   },
   "devDependencies": {
     "@strv/eslint-config-javascript": "^7.7.0",
