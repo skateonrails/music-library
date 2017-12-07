@@ -33,8 +33,5 @@ module.exports = env => ({
   },
   database: {
     pool: { min: process.env.DATABASE_POOL_MIN || 0, max: process.env.DATABASE_POOL_MAX || 5 },
-    migrations: {
-      directory: './src/database/migrations',
-    }
   }
 })

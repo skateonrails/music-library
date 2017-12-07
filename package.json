@@ -19,6 +19,7 @@
     "koa-compress": "^2.0.0",
     "koa-router": "^7.3.0",
     "lodash": "^4.17.4",
+    "luxon": "^0.2.6",
     "objection": "^0.9.2",
     "pg": "^7.4.0"
   },
