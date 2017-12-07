@@ -1,13 +1,11 @@
-const objection = require('objection')
-const knex = require('knex')
+// const objection = require('objection')
+// const knex = require('knex')
 
-const Model = objection.Model
+// const Model = objection.Model
+// Model.knex(knex)
 
-const database = {}
+// const database = {}
+// database.knex = knex
+// database.Model = Model
 
-Model.knex(knex)
-
-database.knex = knex
-database.Model = Model
-
-module.exports = database
+// module.exports = database

@@ -1,12 +1,23 @@
+const _ = require('lodash')
 const joi = require('joi')
 const schema = require('../validation/schema')
+const models = require('../database/models')
 
 module.exports = {
-  index(ctx) {
-    ctx.status = 200
-    ctx.body = {
-      genres: ['dubstep', 'trap', 'DnB'],
-    }
+  async index(ctx) {
+    await models.genre
+      .query()
+      .then(genres => {
+        ctx.status = 200
+        ctx.body = {
+          genres: _.map(genres, genre => {
+            return genre.name
+          }),
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   create(ctx) {
     const result = joi.validate(ctx.request.body, schema.genre.schema)
