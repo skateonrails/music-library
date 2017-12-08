@@ -1,3 +1,4 @@
+const { isNull, isUndefined } = require('util')
 const _ = require('lodash')
 const joi = require('joi')
 const schema = require('../validation/schema')
@@ -41,18 +42,38 @@ module.exports = {
       },
     }
   },
-  update(ctx) {
+  async update(ctx) {
+    const genre = await models.genre
+      .query()
+      .findById(ctx.params.id)
+
+    if (isUndefined(genre) || isNull(genre)) {
+      ctx.status = 404
+      ctx.body = {
+        errors: 'Genre not found',
+      }
+      return
+    }
+
     const result = joi.validate(ctx.request.body, schema.genre.schema)
     if (result.error !== null) {
       ctx.status = 500
       ctx.body = {
-        errors: 'Wrong params'
+        errors: 'Wrong params',
       }
       return
     }
+
+    // updating value
+    const updatedGenre = await models.genre
+      .query()
+      .patchAndFetchById(ctx.params.id, ctx.request.body.genre)
+
     ctx.status = 200
     ctx.body = {
-      genre: ctx.request.body.genre,
+      genre: {
+        name: updatedGenre.name,
+      },
     }
   },
 }
