@@ -5,7 +5,7 @@
   "main": "src/cluster.js",
   "scripts": {
     "start": "node .",
-    "test": "mocha --opts ./tests/mocha.opts ./tests"
+    "test": "NODE_ENV=test mocha --opts ./tests/mocha.opts ./tests"
   },
   "author": "Samuel Prado",
   "license": "ISC",
