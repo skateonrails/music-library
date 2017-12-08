@@ -5,7 +5,7 @@ const databaseCleaner = require('./../../support/database-cleaner')
 
 const expect = chai.expect
 
-describe('/genre', () => {
+describe('POST /genre', () => {
 
   beforeEach(async () => {
     await databaseCleaner.resetDb()
@@ -25,7 +25,7 @@ describe('/genre', () => {
     expect(res.body.genre).to.be.an('object')
     expect(res.body.genre).to.deep.equal({ name: 'Crazy Genre' })
   })
-  
+
   it('should return error', async () => {
     const res = await request(app)
       .post('/genre')

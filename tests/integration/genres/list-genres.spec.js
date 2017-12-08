@@ -6,7 +6,7 @@ const databaseCleaner = require('./../../support/database-cleaner')
 
 const expect = chai.expect
 
-describe('/', () => {
+describe('GET /', () => {
   beforeEach(async () => {
     await databaseCleaner.resetDb()
   })
