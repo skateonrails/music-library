@@ -19,19 +19,26 @@ module.exports = {
         console.log(err)
       })
   },
-  create(ctx) {
+  async create(ctx) {
     const result = joi.validate(ctx.request.body, schema.genre.schema)
     if (result.error !== null) {
       ctx.status = 500
       ctx.body = {
-        errors: 'Wrong params'
+        errors: 'Wrong params',
       }
       return
     }
 
+    const newGenre = await models.genre
+      .query()
+      .insert(ctx.request.body.genre)
+      .returning('*')
+
     ctx.status = 201
     ctx.body = {
-      genre: ctx.request.body.genre,
+      genre: {
+        name: newGenre.name,
+      },
     }
   },
   update(ctx) {
