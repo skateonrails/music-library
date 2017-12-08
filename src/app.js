@@ -7,6 +7,7 @@ const cluster = require('cluster')
 const config = require('./config')
 const log = require('./common/logger')
 const routes = require('./routes')
+const db = require('./database')
 
 const app = new Koa()
 app.use(koaCompress())
@@ -27,6 +28,9 @@ app.stop = () => {
     log.warn('Server not initialized yet.')
     return
   }
+
+  log.info('Closing database connections.')
+  db.knex.destroy()
 
   log.info('Stopping server ...')
   app.server.close(() => {
