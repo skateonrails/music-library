@@ -2,9 +2,9 @@ const Koa = require('koa')
 const koaBody = require('koa-body')
 const koaCompress = require('koa-compress')
 const koaCors = require('kcors')
+const cluster = require('cluster')
 
 const config = require('./config')
-const cluster = require('./cluster')
 const log = require('./common/logger')
 const routes = require('./routes')
 
@@ -36,7 +36,7 @@ app.stop = () => {
 
 app.on('error', err => log.error(err, 'Unhandled application error.'))
 
-if (require.main === module || !cluster.isMaster) {
+if (require.main === module || cluster.isWorker) {
   app.start()
 
   process.once('SIGINT', () => app.stop())
