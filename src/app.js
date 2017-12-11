@@ -42,6 +42,17 @@ app.stop = () => {
 
 app.on('error', err => log.error(err, 'Unhandled application error.'))
 
+process.once('uncaughtException', fatal)
+process.once('unhandledRejection', fatal)
+
+function fatal(err) {
+  log.fatal(err, 'Fatal error occurred. Exiting the app.')
+
+  setTimeout(() => {
+    throw err
+  }, 5000).unref()
+}
+
 if (require.main === module || cluster.isWorker) {
   app.start()
 
