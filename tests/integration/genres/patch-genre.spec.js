@@ -38,11 +38,12 @@ describe('PATCH /genre/:id', () => {
       })
       .expect(404)
 
-    expect(res.body).to.have.keys(['errors'])
-    expect(res.body.errors).to.be.equal('Genre not found')
+    expect(res.body).to.have.keys(['message', 'type'])
+    expect(res.body.message).to.be.equal('Target resource was not found.')
+    expect(res.body.type).to.be.equal('E_NOT_FOUND')
   })
-  
-  it('should return error', async () => {
+
+  it('should return BadRequest', async () => {
     const genre = await genreFactory
     const res = await request(app)
       .patch(`/genre/${genre.id}`)
@@ -51,9 +52,10 @@ describe('PATCH /genre/:id', () => {
           _name: 'New Genre',
         },
       })
-      .expect(500)
+      .expect(400)
 
-    expect(res.body).to.have.keys(['errors'])
-    expect(res.body.errors).to.be.equal('Wrong params')
+    expect(res.body).to.have.keys(['message', 'type'])
+    expect(res.body.message).to.be.equal('Validation did not passed.')
+    expect(res.body.type).to.be.equal('E_VALIDATION')
   })
 })

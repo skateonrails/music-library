@@ -26,7 +26,7 @@ describe('POST /genre', () => {
     expect(res.body.genre).to.deep.equal({ name: 'Crazy Genre' })
   })
 
-  it('should return error', async () => {
+  it('should return BadRequest error', async () => {
     const res = await request(app)
       .post('/genre')
       .send({
@@ -34,9 +34,10 @@ describe('POST /genre', () => {
           _name: 'Crazy Genre',
         }
       })
-      .expect(500)
+      .expect(400)
 
-    expect(res.body).to.have.keys(['errors'])
-    expect(res.body.errors).to.be.equal('Wrong params')
+    expect(res.body).to.have.keys(['message', 'type'])
+    expect(res.body.message).to.be.equal('Validation did not passed.')
+    expect(res.body.type).to.be.equal('E_VALIDATION')
   })
 })

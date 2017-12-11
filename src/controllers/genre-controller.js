@@ -3,6 +3,7 @@ const _ = require('lodash')
 const joi = require('joi')
 const schema = require('../validation/schema')
 const models = require('../database/models')
+const errors = require('../common/errors')
 
 module.exports = {
   async index(ctx) {
@@ -16,18 +17,11 @@ module.exports = {
           }),
         }
       })
-      .catch(err => {
-        console.log(err)
-      })
   },
   async create(ctx) {
     const result = joi.validate(ctx.request.body, schema.genre.schema)
     if (result.error !== null) {
-      ctx.status = 500
-      ctx.body = {
-        errors: 'Wrong params',
-      }
-      return
+      throw new errors.ValidationError()
     }
 
     const newGenre = await models.genre
@@ -48,20 +42,12 @@ module.exports = {
       .findById(ctx.params.id)
 
     if (isUndefined(genre) || isNull(genre)) {
-      ctx.status = 404
-      ctx.body = {
-        errors: 'Genre not found',
-      }
-      return
+      throw new errors.NotFoundError()
     }
 
     const result = joi.validate(ctx.request.body, schema.genre.schema)
     if (result.error !== null) {
-      ctx.status = 500
-      ctx.body = {
-        errors: 'Wrong params',
-      }
-      return
+      throw new errors.ValidationError()
     }
 
     // updating value

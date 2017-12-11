@@ -8,11 +8,13 @@ const config = require('./config')
 const log = require('./common/logger')
 const routes = require('./routes')
 const db = require('./database')
+const errorHandler = require('./middleware/error-handler')
 
 const app = new Koa()
 app.use(koaCompress())
 app.use(koaBody(config.server.bodyParser))
 app.use(koaCors(config.server.cors))
+app.use(errorHandler.handleErrors)
 
 app.use(routes)
 
