@@ -4,7 +4,7 @@ const schema = require('../validation/schema')
 const models = require('../database/models')
 const validationMiddleware = require('../middleware/validation')
 const resourceFinderMiddleware = require('../middleware/resource-finder')
-const genreService = require('./../services').genre
+const genreServices = require('./../services').genre
 
 module.exports = {
   index: async ctx => {
@@ -21,7 +21,7 @@ module.exports = {
     validationMiddleware.validateBody(schema.genre.schema),
 
     async ctx => {
-      const newGenre = await genreService.create.process(ctx.request.validatedBody.genre)
+      const newGenre = await genreServices.create.process(ctx.request.validatedBody.genre)
 
       ctx.status = 201
       ctx.body = {
@@ -39,9 +39,10 @@ module.exports = {
     async ctx => {
       const genre = ctx.request.foundResource
       // updating value
-      const updatedGenre = await models.genre
-        .query()
-        .patchAndFetchById(genre.id, ctx.request.validatedBody.genre)
+      const updatedGenre = await genreServices.update.process(
+        genre.id,
+        ctx.request.validatedBody.genre,
+      )
 
       ctx.status = 200
       ctx.body = {
