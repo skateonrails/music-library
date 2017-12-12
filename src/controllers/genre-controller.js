@@ -4,6 +4,7 @@ const schema = require('../validation/schema')
 const models = require('../database/models')
 const validationMiddleware = require('../middleware/validation')
 const resourceFinderMiddleware = require('../middleware/resource-finder')
+const genreService = require('./../services').genre
 
 module.exports = {
   index: async ctx => {
@@ -20,10 +21,7 @@ module.exports = {
     validationMiddleware.validateBody(schema.genre.schema),
 
     async ctx => {
-      const newGenre = await models.genre
-        .query()
-        .insert(ctx.request.validatedBody.genre)
-        .returning('*')
+      const newGenre = await genreService.create.process(ctx.request.validatedBody.genre)
 
       ctx.status = 201
       ctx.body = {
