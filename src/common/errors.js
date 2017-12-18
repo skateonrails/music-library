@@ -26,9 +26,16 @@ class ValidationError extends ServerError {
   }
 }
 
+class UnauthorizedError extends ServerError {
+  constructor(type = 'E_UNAUTHORIZED', message = 'Not authorized.') {
+    super(type, message, 401)
+  }
+}
+
 module.exports = {
   ServerError,
   InternalServerError,
   NotFoundError,
   ValidationError,
+  UnauthorizedError,
 }

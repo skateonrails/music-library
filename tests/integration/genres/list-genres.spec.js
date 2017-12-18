@@ -1,8 +1,8 @@
-const request = require('supertest-koa-agent')
 const chai = require('chai')
 const app = require('../../../src/app')
 const genreFactory = require('./../../factories/genre-factory')
 const databaseCleaner = require('./../../support/database-cleaner')
+const authorizedRequest = require('./../../support/authorized-request')
 
 const expect = chai.expect
 
@@ -13,9 +13,12 @@ describe('GET /', () => {
 
   it('should list music genres', async () => {
     const genre = await genreFactory
-    const res = await request(app)
-      .get('/')
-      .expect(200)
+    const res = await authorizedRequest({
+      app,
+      method: 'get',
+      routePath: '/',
+      expectedStatus: 200,
+    })
 
     expect(res.body).to.have.keys(['genres'])
     expect(res.body.genres).to.be.an('array')
