@@ -51,4 +51,7 @@ module.exports = env => ({
       issuer: `com.music_library.${env}`,
     },
   },
+  stripe: {
+    secretKey: process.env.STRIPE_API_SECRET_KEY,
+  }
 })
