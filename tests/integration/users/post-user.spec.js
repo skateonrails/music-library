@@ -1,9 +1,11 @@
 const chai = require('chai')
-const app = require('../../../src/app')
+const request = require('supertest-koa-agent')
+const app = require('./../../../src/app')
 const databaseCleaner = require('./../../support/database-cleaner')
-const authorizedRequest = require('./../../support/authorized-request')
 
 const expect = chai.expect
+
+const queue = require('kue').createQueue()
 
 describe('POST /user', () => {
 
@@ -12,19 +14,18 @@ describe('POST /user', () => {
   })
 
   it('should create a user', async () => {
-    const res = await authorizedRequest({
-      app,
-      method: 'post',
-      routePath: '/user',
-      expectedStatus: 201,
-      data: {
+    queue.testMode.enter()
+
+    const res = await request(app)
+      .post('/user')
+      .send({
         user: {
           name: 'Leumas Odrap',
           email: 'email@email.cz',
           password: 'passw0rD!1!1!1',
         },
-      },
-    })
+      })
+      .expect(201)
 
     expect(res.body).to.have.keys(['user'])
     expect(res.body.user).to.be.an('object')
@@ -34,21 +35,18 @@ describe('POST /user', () => {
     expect(res.body.user.email).to.be.equal('email@email.cz')
   })
 
-  // it('should return BadRequest error', async () => {
-  //   const res = await authorizedRequest({
-  //     app,
-  //     method: 'post',
-  //     routePath: '/user',
-  //     expectedStatus: 400,
-  //     data: {
-  //       user: {
-  //         _name: 'Crazy user',
-  //       },
-  //     },
-  //   })
+  it('should return BadRequest error', async () => {
+    const res = await request(app)
+      .post('/user')
+      .send({
+        user: {
+          name: 'Leumas Odrap',
+        },
+      })
+      .expect(400)
 
-  //   expect(res.body).to.have.keys(['message', 'type'])
-  //   expect(res.body.message).to.be.equal('Validation did not passed.')
-  //   expect(res.body.type).to.be.equal('E_VALIDATION')
-  // })
+    expect(res.body).to.have.keys(['message', 'type'])
+    expect(res.body.message).to.be.equal('Validation did not passed.')
+    expect(res.body.type).to.be.equal('E_VALIDATION')
+  })
 })
