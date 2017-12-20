@@ -10,9 +10,13 @@ router.post('/sessions', controllers.session.create)
 router.use(authorizationMiddleware.authorized)
 
 // Routes that need authorization header
+// Genre routes
 router.get('/', controllers.genre.index)
 router.post('/genre', controllers.genre.create)
 router.patch('/genre/:id', controllers.genre.update)
+
+// User routes
+router.post('/user', controllers.user.create)
 
 const routes = router.routes()
 module.exports = routes
