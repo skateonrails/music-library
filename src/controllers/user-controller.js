@@ -12,7 +12,9 @@ module.exports = {
     validationMiddleware.validateBody(schema.user.schema),
     async ctx => {
       const newUser = await createService.process(ctx.request.validatedBody.user)
-      sendEmail(newUser.id)
+      const userId = newUser.id
+      sendEmail(userId)
+      createCustomerOnStripe(userId)
 
       ctx.status = 201
       ctx.body = {
@@ -24,6 +26,12 @@ module.exports = {
 
 function sendEmail(userId) {
   queue.create('user_email', {
+    userId,
+  }).save()
+}
+
+function createCustomerOnStripe(userId) {
+  queue.create('customer:create', {
     userId,
   }).save()
 }
