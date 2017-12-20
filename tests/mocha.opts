@@ -4,3 +4,4 @@
 --bail
 --check-leaks
 --globals indent
+--exit
