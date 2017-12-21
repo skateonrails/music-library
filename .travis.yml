@@ -17,6 +17,8 @@ before_script:
 script:
 - npm run lint
 - npm test
+after_deploy:
+- knex migrate:latest
 cache:
   directories:
   - node_modules
