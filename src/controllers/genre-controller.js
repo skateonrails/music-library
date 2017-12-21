@@ -8,8 +8,7 @@ const genreServices = require('./../services').genre
 
 module.exports = {
   index: async ctx => {
-    const genres = await models.genre
-      .query()
+    const genres = await genreServices.find.process()
 
     ctx.status = 200
     ctx.body = {
