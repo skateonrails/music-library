@@ -24,5 +24,5 @@ module.exports = {
     ctx.request.currentUser = user
 
     await middleware()
-  }
+  },
 }

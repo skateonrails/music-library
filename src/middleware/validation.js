@@ -14,5 +14,5 @@ module.exports = {
       // Run next middleware
       await middleware()
     }
-  }
+  },
 }

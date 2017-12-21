@@ -36,7 +36,8 @@ module.exports = env => ({
   },
   auth: {
     secret: process.env.AUTH_SECRET
-      || ' 0ec9489b33b607d83d5b55ec79437b73acb88c648ff9da78f3cfaa7500be19928dfc6563480fbc821e9bab83418357b1',
+      || '0ec9489b33b607d83d5b55ec79437b73acb88c648ff9da78'
+      + 'f3cfaa7500be19928dfc6563480fbc821e9bab83418357b1',
     saltRounds: 10,
     resetPasswordTokenLength: 20,
     createOptions: {

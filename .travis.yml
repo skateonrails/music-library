@@ -1,0 +1,24 @@
+language: node_js
+dist: trusty
+node_js: '9.2'
+sudo: false
+env:
+  global:
+  - NODE_ENV=test
+  - DATABASE_NAME_TEST=music_library_test
+services:
+  - postgresql
+  - redis
+install:
+  - npm install
+
+before_script:
+  - psql -c 'create database "music_library_test";' -U postgres
+  - knex migrate:latest
+script:
+  - npm run lint
+  - npm test
+
+cache:
+  directories:
+    - node_modules
