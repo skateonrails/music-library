@@ -7,18 +7,23 @@ env:
   - NODE_ENV=test
   - DATABASE_NAME_TEST=music_library_test
 services:
-  - postgresql
-  - redis
+- postgresql
+- redis
 install:
-  - npm install
-
+- npm install
 before_script:
-  - psql -c 'create database "music_library_test";' -U postgres
-  - knex migrate:latest
+- psql -c 'create database "music_library_test";' -U postgres
+- knex migrate:latest
 script:
-  - npm run lint
-  - npm test
-
+- npm run lint
+- npm test
 cache:
   directories:
-    - node_modules
+  - node_modules
+deploy:
+  provider: heroku
+  api_key:
+    secure: XtUHVMflp+yvtmK9mpxa/N8v1bpGPvXY5yBBFPAz5nG05alebr0BLIIYzSmeR94Xq5BlASrBej+jp8fazgw8JZ0ahyCtQZOhCQ9nkeNEIkcJ48Dv6DljX3eZqbTx/YAQdQzNx3DWy7hfpVeNdaEV4Aliny02MReElY7hRl6E2YSugkYGlX/Mxd0gN0BmPDlj0+xT8Isz8zP4T6DzQ/p32tpnarzTL8Ske/DBIVND//ESHQcRpEYE8ef9PLFpBfdVkJ9PZh/ya7OF3IPzAy7sQ1d5qcnugRAjxzdMkxSDh9paH4C7lFOU/fyF+f+ip81U1sRNss2qV6t5oESzuGNGgxPewvu2r/1DpFrSXzqqhK39XR9hhjY7CmMp2kluPz1TAFKllyCoEtpkcWWYddfuwjFNYKVgHmQXWSd4H/7vUISUQnm6WzAbiiDTON+jhvkJ89GPndDkpbppZ2+TKY2NaSb6IPaJfn+hX5RV5T3AwjPINKqv0ffkm5Eda/LGXl/XPgoOk9e2MRCl5CMN77Cgnzyt64PIUYBq94IYS/zlgvJgYXxdCpTHc2Ovt99Ae5tdjaDBXKSjqp9NtlQEAQbL6uwKZvlIzdQSplQOns71VBdKT74n1Ce4zYhg/glMo1b1kWTjB5jhPKyVTc74WZS35c6LMAUNIgSmBz1nvtw8JcI=
+  app: backend-learning-samuel
+  on:
+    repo: strvcom/backend-learning-samuel
